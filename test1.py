@@ -68,17 +68,31 @@ gdoc = drive.CreateFile(
     {
         "title": "My Shiny New Google Doc from Python!",
         "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-        # "id": "doc-id-here" # to edit file, overwrite doc-id.
+        # application/vnd.google-apps.document
+        # "id": "file-id-here"  # to edit file, overwrite doc-id.
     }
 )
 gdoc.SetContentString(htmldoc)
-gdoc.Upload()
 
-print(gdoc["alternateLink"])
+gdoc.Upload({"convert": True})
+
+# clone perms
+# oldfile = drive.CreateFile({"id": "<doc id to clone>"})
+# oldfile_permissions = oldfile.GetPermissions()
+# print(oldfile['permissions'])
+#
+# for perm in oldfile_permissions:
+#     gdoc.InsertPermission(perm)
+
+# print(gdoc["alternateLink"])
 # should give you a https:// URL to the doc!
 
+# delete a file
+# delfile = drive.CreateFile({"id": "<file id here>"})
+# delfile.Delete()
+
 # Most permissive
-# gdoc.InsertPermission({"type": "anyone", "role": "writer", "value": "anyone"})
+gdoc.InsertPermission({"type": "anyone", "role": "writer", "value": "anyone"})
 
 # Write-access to specific email addresses
 # email_addresses = ("first@person.email", "second@person.email",...)
