@@ -1,0 +1,2 @@
+PyDrive2 >= 1.19.0
+markdown >= 3.5.2
